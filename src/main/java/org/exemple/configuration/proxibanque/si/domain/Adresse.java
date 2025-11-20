@@ -1,12 +1,18 @@
 package org.exemple.configuration.proxibanque.si.domain;
 
+import jakarta.persistence.Embeddable;
+
 import java.util.Objects;
 
+@Embeddable
 public class Adresse {
 
-    private final String rue;
-    private final String codePostal;
-    private final String ville;
+    private String rue;
+    private String codePostal;
+    private String ville;
+
+    protected Adresse() {
+    }
 
     public Adresse(String rue, String codePostal, String ville) {
         Objects.requireNonNull(rue, "La rue ne peut pas être null");

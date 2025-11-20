@@ -1,13 +1,24 @@
 package org.exemple.configuration.proxibanque.si.domain;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Compte {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String numeroCompte;
     private double solde;
     private LocalDate dateOuverture;
+
+    protected Compte() {
+    }
 
     protected Compte(String numeroCompte, double solde, LocalDate dateOuverture) {
         Objects.requireNonNull(numeroCompte, "Le numéro de compte ne peut pas être null");
@@ -38,5 +49,9 @@ public abstract class Compte {
 
     public LocalDate getDateOuverture() {
         return dateOuverture;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

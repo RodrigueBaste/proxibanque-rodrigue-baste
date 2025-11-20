@@ -18,13 +18,13 @@ public abstract class Employe {
     }
 
     private void validateProperties(String nom, String prenom, String numeroEmploye) {
-        if (nom == null || nom.isEmpty()) {
+        if (nom.trim().isEmpty()) {
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         }
-        if (prenom == null || prenom.isEmpty()) {
+        if (prenom.trim().isEmpty()) {
             throw new IllegalArgumentException("Le prénom ne peut pas être vide");
         }
-        if (numeroEmploye == null || numeroEmploye.isEmpty()) {
+        if (numeroEmploye.trim().isEmpty()) {
             throw new IllegalArgumentException("Le numéro d'employé ne peut pas être vide");
         }
     }
