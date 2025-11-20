@@ -6,7 +6,8 @@ import java.time.LocalDate;
 
 @Entity
 public class CompteCourant extends Compte {
-
+    
+    // Constante pour le découvert par défaut
     private static final double DECOUVERT_PAR_DEFAUT = 1000.0;
 
     private double decouvertAutorise;

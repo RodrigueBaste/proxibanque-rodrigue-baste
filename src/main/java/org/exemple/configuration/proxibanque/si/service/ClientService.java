@@ -1,6 +1,8 @@
 package org.exemple.configuration.proxibanque.si.service;
 
+import org.exemple.configuration.proxibanque.si.domain.CarteBancaire;
 import org.exemple.configuration.proxibanque.si.domain.Client;
+import org.exemple.configuration.proxibanque.si.domain.CompteCourant;
 import org.exemple.configuration.proxibanque.si.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,5 +69,22 @@ public class ClientService {
             throw new IllegalArgumentException("Client non trouvé avec l'id: " + id);
         }
         clientRepository.deleteById(id);
+    }
+
+    public Client ajouterCompteCourant(Long clientId, CompteCourant compteCourant) {
+        Client client = obtenirClient(clientId);
+
+        if (client.hasCompteCourant()) {
+            throw new IllegalStateException("Le client possède déjà un compte courant");
+        }
+
+        client.ajouterCompteCourant(compteCourant);
+        return clientRepository.save(client);
+    }
+
+    public Client ajouterCarte(Long clientId, CarteBancaire carte) {
+        Client client = obtenirClient(clientId);
+        client.ajouterCarte(carte);
+        return clientRepository.save(client);
     }
 }

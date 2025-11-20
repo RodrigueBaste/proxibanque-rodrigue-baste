@@ -1,6 +1,8 @@
 package org.exemple.configuration.proxibanque.si.controller;
 
+import org.exemple.configuration.proxibanque.si.domain.CarteBancaire;
 import org.exemple.configuration.proxibanque.si.domain.Client;
+import org.exemple.configuration.proxibanque.si.domain.CompteCourant;
 import org.exemple.configuration.proxibanque.si.service.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +51,7 @@ public class ClientController {
         List<Client> clients = clientService.rechercherClients(recherche);
         return ResponseEntity.ok(clients);
     }
-
+ 
     @PutMapping("/{id}")
     public ResponseEntity<Client> modifierClient(@PathVariable Long id, @RequestBody Client client) {
         Client clientModifie = clientService.modifierClient(id, client);
@@ -62,9 +64,15 @@ public class ClientController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> supprimerClient(@PathVariable Long id) {
-        clientService.supprimerClient(id);
-        return ResponseEntity.noContent().build();
+    @PostMapping("/{id}/comptes/courant")
+    public ResponseEntity<Client> ajouterCompteCourant(@PathVariable Long id, @RequestBody CompteCourant compteCourant) {
+        Client client = clientService.ajouterCompteCourant(id, compteCourant);
+        return ResponseEntity.status(HttpStatus.CREATED).body(client);
+    }
+
+    @PostMapping("/{id}/cartes")
+    public ResponseEntity<Client> ajouterCarte(@PathVariable Long id, @RequestBody CarteBancaire carte) {
+        Client client = clientService.ajouterCarte(id, carte);
+        return ResponseEntity.status(HttpStatus.CREATED).body(client);
     }
 }
